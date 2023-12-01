@@ -28,3 +28,13 @@ export PS1="\u@\h \[\e[32m\]\w \[\e[91m\]
 \$(parse_git_branch)\[\e[00m\]$ "
 
 
+# run ros agent over usb
+# urosagent serial --dev /dev/picoboard
+# urosagent serial --dev /dev/ttyACM0
+# urosagent udp4 --port 8888 -v6
+function urosagent() {
+	docker run -it --rm --privileged \
+	--net=host \
+	microros/micro-ros-agent:iron \
+	"$@"
+}
