@@ -11,14 +11,10 @@ alias cb="colcon build --symlink-install"
 
 rrs() { ros2 run sipeed_tof_ms_a010 publisher --ros-args -p device:="/dev/ttyUSB0";}
 
-
-alias stp="ros2 run tf2_ros static_transform_publisher 0 0 0 0 0 0 base_link pico_vl53l5cx"
-
 alias mca0="sudo minicom -D /dev/ttyACM0"
 alias mca1="sudo minicom -D /dev/ttyACM1"
 alias pbs="sudo minicom -D /dev/picoboard"
 alias pps="sudo minicom -D /dev/picoprobe"
-
 
 # show git git branch in prompt
 parse_git_branch() {
@@ -38,3 +34,6 @@ function urosagent() {
 	microros/micro-ros-agent:iron \
 	"$@"
 }
+alias ura="urosagent serial --dev /dev/ttyACM0"
+alias stp="ros2 run tf2_ros static_transform_publisher 0 0 0 0 0 0 base_link pico_vl53l5cx"
+alias rvt="rviz2 -d ../ws/src/.devcontainer/tof8_imu.rviz"
