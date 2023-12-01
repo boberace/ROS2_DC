@@ -1,0 +1,43 @@
+{
+    "name": "ROS 2 Iron DC",
+    "privileged": true,
+    "remoteUser": "rrace001",
+    "build": {
+        "dockerfile": "Dockerfile",
+        "args": {
+            "rrace001": "rrace001"
+        }
+    },
+    "workspaceFolder": "/home/ws",
+    "workspaceMount": "source=${localWorkspaceFolder},target=/home/ws/src,type=bind",
+    "customizations": {
+        "vscode": {
+            "extensions":[
+				"ms-vscode.cpptools",
+				"ms-vscode.cpptools-themes",
+				"twxs.cmake",
+				"donjayamanne.python-extension-pack",
+				"eamodio.gitlens",
+				"ms-iot.vscode-ros",
+				"GitHub.copilot",
+				"GitHub.copilot-chat"
+			]
+        }
+    },
+    "runArgs": [
+        // "--net=host",
+        "-e", "DISPLAY=${env:DISPLAY}"
+    ],
+    "appPort": 8888,
+    "mounts": [
+       "source=/tmp/.X11-unix,target=/tmp/.X11-unix,type=bind,consistency=cached",
+        "source=/dev/dri,target=/dev/dri,type=bind,consistency=cached",
+        "source=${localWorkspaceFolder}/../cache/iron/build,target=/home/ws/build,type=bind",
+        "source=${localWorkspaceFolder}/../cache/iron/install,target=/home/ws/install,type=bind",
+        "source=${localWorkspaceFolder}/../cache/iron/log,target=/home/ws/log,type=bind",
+        "source=${localWorkspaceFolder}/.devcontainer/.bash_aliases,target=/home/rrace001/.bash_aliases,type=bind",
+
+    ],
+    "postCreateCommand": "sudo rosdep update && sudo rosdep install --from-paths src --ignore-src -y && sudo chown -R rrace001 /home/ws/",
+
+}
