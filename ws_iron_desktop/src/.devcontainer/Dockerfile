@@ -1,19 +1,19 @@
 FROM osrf/ros:iron-desktop-full
-ARG rrace001=rrace001
+ARG DEBIAN_FRONTEND=nointeractive
+ARG CONTAINER_USER=iron
 ARG USER_UID=1000
 ARG USER_GID=$USER_UID
 
 # Create the user
-RUN groupadd --gid $USER_GID $rrace001 \
-    && useradd --uid $USER_UID --gid $USER_GID -m $rrace001 \
-    && chown -R $USER_UID:$USER_GID /home/$rrace001 \
-    && usermod -a -G dialout $rrace001 \
-    #
-    # [Optional] Add sudo support. Omit if you don't need to install software after connecting.
+RUN groupadd --gid $USER_GID $CONTAINER_USER \
+    && useradd --uid $USER_UID --gid $USER_GID -m $CONTAINER_USER \
+    && chown -R $USER_UID:$USER_GID /home/$CONTAINER_USER \
+    && usermod -a -G dialout $CONTAINER_USER \
+
     && apt-get update \
     && apt-get install -y sudo \
-    && echo $rrace001 ALL=\(root\) NOPASSWD:ALL > /etc/sudoers.d/$rrace001 \
-    && chmod 0440 /etc/sudoers.d/$rrace001
+    && echo $CONTAINER_USER ALL=\(root\) NOPASSWD:ALL > /etc/sudoers.d/$CONTAINER_USER \
+    && chmod 0440 /etc/sudoers.d/$CONTAINER_USER
 
 # install docker
 RUN apt-get update \
@@ -29,7 +29,7 @@ RUN if getent group docker > /dev/null 2>&1; then \
     else \
         groupadd docker; \
     fi && \
-    usermod -aG docker rrace001
+    usermod -aG docker $CONTAINER_USER
 
 
 RUN apt-get update && apt-get upgrade -y
@@ -41,5 +41,5 @@ ENV SHELL /bin/bash
 # ********************************************************
 
 # [Optional] Set the default user. Omit if you want to keep the default as root.
-USER $rrace001
+USER $CONTAINER_USER
 CMD ["/bin/bash"]

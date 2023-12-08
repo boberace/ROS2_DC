@@ -34,6 +34,7 @@ function urosagent() {
 	microros/micro-ros-agent:iron \
 	"$@"
 }
-alias ura="urosagent serial --dev /dev/ttyACM0"
+alias uras0="urosagent serial --dev /dev/ttyACM0 -v6"
+alias uras1="urosagent serial --dev /dev/ttyACM1 -v6"
 alias stp="ros2 run tf2_ros static_transform_publisher 0 0 0 0 0 0 base_link pico_vl53l5cx"
 alias rvt="rviz2 -d ../ws/src/.devcontainer/tof8_imu.rviz"
