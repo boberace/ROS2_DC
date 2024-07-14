@@ -1,15 +1,17 @@
 {
-    "name": "ROS 2 iron desktop",
+    "name": "ROS 2 jazzy",
+	/* container name when creating container */
+	"image": "ros:jazzy-perception-noble",
     "privileged": true,
-    "remoteUser": "iron",
-    "build": {
-        "dockerfile": "Dockerfile",
-        "args": {
-            "USERNAME": "iron"
-        }
-    },
-    "workspaceFolder": "/home/iron/ws_iron",
-    "workspaceMount": "source=${localWorkspaceFolder},target=/home/iron/ws_iron/src,type=bind",
+    // "remoteUser": "jazzyros",
+    // "build": {
+    //     "dockerfile": "Dockerfile",
+    //     "args": {
+    //         "USERNAME": "jazzyros"
+    //     }
+    // },
+    "workspaceFolder": "/home/ws_jazzy",
+    "workspaceMount": "source=${localWorkspaceFolder},target=/home/ws_jazzy/src,type=bind",
     "customizations": {
         "vscode": {
             "extensions":[
@@ -34,7 +36,9 @@
     "mounts": [
        "source=/tmp/.X11-unix,target=/tmp/.X11-unix,type=bind,consistency=cached",
        "source=/dev/dri,target=/dev/dri,type=bind,consistency=cached",
-       "source=${localWorkspaceFolder}/.devcontainer/.bash_aliases,target=/home/iron/.bash_aliases,type=bind"
-    ],
-    // "postCreateCommand": "sudo rosdep update && sudo rosdep install --from-paths src --ignore-src -y && sudo chown -R $(whoami) /home/ws/"
+       "source=${localWorkspaceFolder}/.devcontainer/.bash_aliases,target=/root/.bash_aliases,type=bind"
+    ]
+
 }
+
+
